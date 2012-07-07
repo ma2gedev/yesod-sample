@@ -69,3 +69,12 @@ todoForm tagList mtodo = renderDivs $ Todo
     <*> areq (selectFieldList [(pack "exist", False), (pack "deleted", True)]) "DELETED" (fmap todoDeleted mtodo)
     <*> areq (jqueryDayField def { jdsChangeYear = True, jdsYearRange = "2000:+5"}) "CREATED" (fmap todoCreated mtodo)
 
+getTodosR :: Handler RepHtml
+getTodosR = do
+    todoEntities <- runDB $ selectList [] [Desc TodoTitle]
+    tagEntities <- runDB $ selectList [] [Desc TagName]
+    defaultLayout $ do
+        setTitle "Todos"
+        $(widgetFile "todos")
+
+lookUpTag todoEntity tagEntity = entityKey tagEntity == todoTag (entityVal todoEntity)

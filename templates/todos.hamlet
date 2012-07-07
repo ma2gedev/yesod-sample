@@ -1,0 +1,22 @@
+<h1>Todo List Page
+<table>
+    <tr>
+        <th>Title
+        <th>Description
+        <th>Tag
+        <th>Done
+        <th>Deleted
+        <th>Created
+        <th>Update
+    $forall todoEntity <- todoEntities
+        <tr>
+            <td>#{todoTitle $ entityVal todoEntity}
+            <td>#{todoDescription $ entityVal todoEntity}
+            <td>#{tagName $ entityVal $ (!!) (Import.filter (lookUpTag todoEntity) tagEntities) 0}
+            <td>#{show $ todoDone $ entityVal todoEntity}
+            <td>#{show $ todoDeleted $ entityVal todoEntity}
+            <td>#{show $ todoCreated $ entityVal todoEntity}
+            <td>
+                <a href=@{TodoUpdateR $ entityKey todoEntity}>
+                    update
+
