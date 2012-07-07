@@ -7,5 +7,11 @@ Email
     user UserId Maybe
     verkey Text Maybe
     UniqueEmail email
+Todo
+    title Text
+    description Text
+    tag TagId
+Tag
+    name Text
 
  -- By default this file is used in Model.hs (which is imported by Foundation.hs)
