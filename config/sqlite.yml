@@ -1,0 +1,20 @@
+Default: &defaults
+  database: hackason.sqlite3
+  poolsize: 10
+
+Development:
+  <<: *defaults
+
+Testing:
+  database: hackason_test.sqlite3
+  <<: *defaults
+
+Staging:
+  database: hackason_staging.sqlite3
+  poolsize: 100
+  <<: *defaults
+
+Production:
+  database: hackason_production.sqlite3
+  poolsize: 100
+  <<: *defaults
