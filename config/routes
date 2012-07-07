@@ -5,4 +5,5 @@
 /robots.txt RobotsR GET
 
 / HomeR GET POST
-/tag/create TagCreateR GET POST
+/tag        TagCreateR GET POST
+/tag/#TagId TagUpdateR GET POST
