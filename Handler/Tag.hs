@@ -48,3 +48,10 @@ postTagUpdateR tagid = do
         setTitle "TagUpdate"
         $(widgetFile "tagform")
 
+getTagsR :: Handler RepHtml
+getTagsR = do
+    tagEntities <- runDB $ selectList [] []
+    defaultLayout $ do
+        setTitle "Tags"
+        $(widgetFile "tags")
+

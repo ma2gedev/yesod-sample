@@ -1,0 +1,11 @@
+<h1>Tag List Page
+<table>
+    <tr>
+        <th>TagName
+        <th>Update
+    $forall tagEntity <- tagEntities
+        <tr>
+            <td>#{tagName $ entityVal tagEntity}
+            <td><a href=@{TagUpdateR $ entityKey tagEntity}>
+                update
+
