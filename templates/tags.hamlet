@@ -1,4 +1,13 @@
 <h1>Tag List Page
+<ul>
+    $if (>) page 1
+        <li>
+            <a href=@{TagsR $ (-) page 1}>
+                前へ
+    $if (<) page maxPage
+        <li>
+            <a href=@{TagsR $ (+) page 1}>
+                次ぎへ
 <table>
     <tr>
         <th>TagName

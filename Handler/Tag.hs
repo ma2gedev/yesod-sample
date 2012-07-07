@@ -2,6 +2,7 @@
 module Handler.Tag where
 
 import Import
+import Control.Monad (when)
 
 getTagCreateR :: Handler RepHtml
 getTagCreateR = do
@@ -48,9 +49,15 @@ postTagUpdateR tagid = do
         setTitle "TagUpdate"
         $(widgetFile "tagform")
 
-getTagsR :: Handler RepHtml
-getTagsR = do
-    tagEntities <- runDB $ selectList [] []
+getTagsR :: Int -> Handler RepHtml
+getTagsR page = do
+    when (page <= 0) notFound
+    let perPage = 4
+        sNum = (page - 1) * perPage + 1
+        eNum = page * perPage
+    tagEntities <- runDB $ selectList [] [OffsetBy (sNum - 1), LimitTo perPage]
+    tagCount <- runDB $ count ([] :: [Filter Tag])
+    let maxPage = (tagCount + perPage - 1) `div` perPage
     defaultLayout $ do
         setTitle "Tags"
         $(widgetFile "tags")
