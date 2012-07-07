@@ -18,6 +18,7 @@ import Yesod.Static
 import Yesod.Auth
 import Yesod.Auth.BrowserId
 import Yesod.Auth.GoogleEmail
+import Yesod.Form.Jquery (YesodJquery)
 import Yesod.Default.Config
 import Yesod.Default.Util (addStaticContentExternal)
 import Yesod.Logger (Logger, logMsg, formatLogText)
@@ -118,6 +119,8 @@ instance Yesod App where
 
     -- Place Javascript at bottom of the body tag so the rest of the page loads first
     jsLoader _ = BottomOfBody
+
+instance YesodJquery App
 
 -- How to run database actions.
 instance YesodPersist App where

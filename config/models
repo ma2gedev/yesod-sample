@@ -11,6 +11,9 @@ Todo
     title Text
     description Text
     tag TagId
+    done Bool default=false
+    deleted Bool default=false
+    created Day
 Tag
     name Text
 

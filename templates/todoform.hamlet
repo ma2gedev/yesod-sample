@@ -1,0 +1,4 @@
+<h1>Todo Form Page
+<form method=post enctype=#{formEnctype}>
+    ^{formWidget}
+    <input type="submit">

@@ -8,3 +8,5 @@
 /tag        TagCreateR GET POST
 /tag/#TagId TagUpdateR GET POST
 /tags/#Int  TagsR GET
+/todo       TodoCreateR GET POST
+
