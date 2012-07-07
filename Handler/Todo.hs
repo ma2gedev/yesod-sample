@@ -29,6 +29,37 @@ postTodoCreateR = do
         setTitle "TodoCreate"
         $(widgetFile "todoform")
 
+getTodoUpdateR :: TodoId -> Handler RepHtml
+getTodoUpdateR todoId = do
+    tags <- runDB $ selectList [] []
+    let tagList = fmap (\tag -> (tagName $ entityVal tag, entityKey tag)) tags
+    todo <- runDB $ get404 todoId
+    (formWidget, formEnctype) <- generateFormPost $ todoForm tagList (Just todo)
+    defaultLayout $ do
+        setTitle "TodoUpdate"
+        $(widgetFile "todoform")
+
+postTodoUpdateR :: TodoId -> Handler RepHtml
+postTodoUpdateR todoId = do
+    tags <- runDB $ selectList [] []
+    let tagList = fmap (\tag -> (tagName $ entityVal tag, entityKey tag)) tags
+    ((result, formWidget), formEnctype) <- runFormPost $ todoForm tagList Nothing
+    case result of
+        FormSuccess res -> do
+            _ <- runDB $ update todoId
+                [ TodoTitle =. todoTitle res
+                , TodoDescription =. todoDescription res
+                , TodoTag =. todoTag res
+                , TodoDone =. todoDone res
+                , TodoDeleted =. todoDeleted res
+                , TodoCreated =. todoCreated res
+                ]
+            return ()
+        _ -> return()
+    defaultLayout $ do
+        setTitle "TodoUpdate"
+        $(widgetFile "todoform")
+
 todoForm :: [(Text, TagId)] -> Maybe Todo -> Form Todo
 todoForm tagList mtodo = renderDivs $ Todo
     <$> areq textField "TITLE" (fmap todoTitle mtodo)
